@@ -40,8 +40,9 @@ def doLogin(request, **kwargs):
             captcha_server = requests.post(url=captcha_url, data=data)
             response = json.loads(captcha_server.text)
             if response['success'] == False:
-                messages.error(request, 'Invalid Captcha. Try Again')
-                return redirect('/')
+                #messages.error(request, 'Invalid Captcha. Try Again')
+                #return redirect('/')
+                continue
         except:
             messages.error(request, 'Captcha could not be verified. Try Again')
             return redirect('/')
