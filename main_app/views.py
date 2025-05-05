@@ -30,24 +30,21 @@ def doLogin(request, **kwargs):
         #Google recaptcha
         captcha_token = request.POST.get('g-recaptcha-response')
         captcha_url = "https://www.google.com/recaptcha/api/siteverify"
-        captcha_key = "6LfswtgZAAAAABX9gbLqe-d97qE2g1JP8oUYritJ"
+        captcha_key = "6LdcDi8rAAAAAL9V_DBStT_6WA0O3MRTpxUPEql-"
         data = {
             'secret': captcha_key,
             'response': captcha_token
         }
         # Make request
-        '''
         try:
             captcha_server = requests.post(url=captcha_url, data=data)
             response = json.loads(captcha_server.text)
             if response['success'] == False:
-                #messages.error(request, 'Invalid Captcha. Try Again')
-                #return redirect('/')
-                continue
+                messages.error(request, 'Invalid Captcha. Try Again')
+                return redirect('/')
         except:
             messages.error(request, 'Captcha could not be verified. Try Again')
             return redirect('/')
-        '''
         
         #Authenticate
         user = EmailBackend.authenticate(request, username=request.POST.get('email'), password=request.POST.get('password'))
